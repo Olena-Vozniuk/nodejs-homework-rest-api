@@ -9,9 +9,14 @@ const {
     getCurrent, 
     logout, 
     updateUserSubscription, 
-    updateAvatar } = require('../../controllers');
+    updateAvatar,
+    verify, 
+    resendVerifyEmail } = require('../../controllers');
+
 
 router.post('/register', validateBody(authSchemas.registerSchema), register);
+router.get('/verify/:verificationToken', verify);
+router.post('/verify', validateBody(authSchemas.emailSchema), resendVerifyEmail);
 router.post('/login', validateBody(authSchemas.registerSchema), login);
 router.get('/current', authenticate, getCurrent);
 router.post('/logout', authenticate, logout);
